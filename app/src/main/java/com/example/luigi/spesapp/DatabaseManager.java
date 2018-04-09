@@ -51,7 +51,7 @@ public class DatabaseManager {
         return database.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }
 
-    public boolean udateUser(String username, User user) {
+    public boolean updateUser(String username, User user) {
         ContentValues updateValues = createContentValues(user.getUsername(), user.getEmail(), user.getPassword(), user.getTutorial());
         return database.update(DATABASE_TABLE, updateValues, KEY_USERNAME + "=" + username, null) > 0;
     }
