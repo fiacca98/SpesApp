@@ -30,6 +30,9 @@ public class Login extends AppCompatActivity {
                     EditText password = (EditText) findViewById(R.id.password);
                     String passwordString = valueOf(password.getText());
                     SharedPreferenceUtility.setUserOnSharedPreferences(usernameString,passwordString,Login.this);
+                    Intent intent = new Intent(Login.this,MainActivity.class);
+                    intent.putExtra("username", usernameString);
+                    startActivity(intent);
                 }
             });
         }

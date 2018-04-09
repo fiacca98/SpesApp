@@ -10,6 +10,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created by luigi on 09/04/2018.
  */
@@ -24,10 +26,8 @@ public class SharedPreferenceUtility {
         editor.putString("Username", username);
         editor.putString("Password", password);
 
-        DateFormat df = new SimpleDateFormat("d MMM yyyy");
-        String date = df.format(Calendar.getInstance().getTime());
-        Log.d("data", date);
-        editor.putString("Token",date);
+
+        editor.putLong("Token",System.currentTimeMillis());
 
         editor.commit();
         Log.d("salvato", "salvato");
@@ -37,19 +37,22 @@ public class SharedPreferenceUtility {
         SharedPreferences sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
         String username = sharedPref.getString("Username",null);
         String password = sharedPref.getString("Password", null);
-        String token = sharedPref.getString("Token", null);
+        long token = sharedPref.getLong("Token", 0);
 
-        DateFormat df = new SimpleDateFormat("d MMM yyyy");
-        String date = df.format(Calendar.getInstance().getTime());
+        Calendar calendar = Calendar.getInstance();
 
-        if(token == null)
+        Calendar currCalendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(token);
+        currCalendar.setTimeInMillis(System.currentTimeMillis());
+        if(calendar.get(Calendar.DAY_OF_MONTH) == currCalendar.get(Calendar.DAY_OF_MONTH)
+                && calendar.get(Calendar.MONTH) == currCalendar.get(Calendar.MONTH)
+                && calendar.get(Calendar.YEAR) == currCalendar.get(Calendar.YEAR))
+
+            return username;
+        else
             return null;
-        else {
-            if (token.equals(date))
-                return username;
-            else
-                return null;
-        }
+
     }
 
 }
