@@ -5,18 +5,23 @@ package com.example.luigi.spesapp;
  */
 
 class User {
-    String username, email,password;
+    String username,name,email,password;
     Boolean tutorial;
 
-    public User (String username, String email, String password, Boolean tutorial){
+    public User (String username, String name, String email, String password, Boolean tutorial){
         this.username=username;
         this.email=email;
         this.password=password;
         this.tutorial=tutorial;
+        this.name=name;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
