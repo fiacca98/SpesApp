@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
                     String usernameString = valueOf(username.getText());
                     EditText password = (EditText) findViewById(R.id.password);
                     String passwordString = valueOf(password.getText());
-                    DatabaseManager dbManager = new DatabaseManager(getApplicationContext());
+                    UserDatabaseManager dbManager = new UserDatabaseManager(getApplicationContext());
                     dbManager.open();
                     Cursor cursor = dbManager.readUser(usernameString);
                     Log.d("cursor", String.valueOf(cursor.moveToFirst()));

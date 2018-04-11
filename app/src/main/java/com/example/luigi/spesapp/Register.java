@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 public class Register extends AppCompatActivity {
 
-    private DatabaseManager databaseManager;
+    private UserDatabaseManager userDatabaseManager;
     private Cursor cursor;
     private User user;
     @Override
@@ -38,22 +37,22 @@ public class Register extends AppCompatActivity {
 
         Button register = (Button) findViewById(R.id.register);
 
-        databaseManager=new DatabaseManager(this);
-        databaseManager.open();
+        userDatabaseManager =new UserDatabaseManager(this);
+        userDatabaseManager.open();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String use=editUsername.getText().toString();
-                databaseManager.createUser(editUsername.getText().toString(),editName.getText().toString(),editMail.getText().toString(),editPassword.getText().toString(), false);
-                cursor=databaseManager.readUser(editUsername.getText().toString());
+                userDatabaseManager.createUser(editUsername.getText().toString(),editName.getText().toString(),editMail.getText().toString(),editPassword.getText().toString(), false);
+                cursor= userDatabaseManager.readUser(editUsername.getText().toString());
                 if (String.valueOf(cursor.moveToFirst()).equals("true")) {
                     SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(), Register.this);
                     Intent intent = new Intent(Register.this, MainActivity.class);
                     intent.putExtra("username", editUsername.getText().toString());
                     startActivity(intent);
                 }
-                databaseManager.close();
+                userDatabaseManager.close();
             }
         });
 

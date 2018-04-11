@@ -5,16 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.FontsContract;
-
-import java.util.ConcurrentModificationException;
 
 /**
  * Created by Giulia on 09/04/2018.
  */
 
-public class DatabaseManager {
+public class UserDatabaseManager {
     private SQLiteDatabase database;
     private DatabaseHelper databaseHelper;
     private Context context;
@@ -26,11 +22,11 @@ public class DatabaseManager {
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_TUTORIAL = "tutorial";
 
-    public DatabaseManager(Context context) {
+    public UserDatabaseManager(Context context) {
         this.context = context;
     }
 
-    public DatabaseManager open() throws SQLException {
+    public UserDatabaseManager open() throws SQLException {
         databaseHelper = new DatabaseHelper(context);
         database = databaseHelper.getWritableDatabase();
         return this;

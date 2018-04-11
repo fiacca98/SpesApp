@@ -3,9 +3,6 @@ package com.example.luigi.spesapp;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.ContactsContract;
-
-import static com.example.luigi.spesapp.DatabaseManager.KEY_TUTORIAL;
 
 /**
  * Created by Giulia on 09/04/2018.
@@ -17,13 +14,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
 
-    public static final String DATABASE_CREATE =
+    public static final String DATABASE_CREATE_USER =
             "CREATE TABLE users(" +
-                    DatabaseManager.KEY_USERNAME + " TEXT PRIMARY KEY, " +
-                    DatabaseManager.KEY_NAME + " TEXT, " +
-                    DatabaseManager.KEY_MAIL + " TEXT, " +
-                    DatabaseManager.KEY_PASSWORD + " TEXT, " +
-                    DatabaseManager.KEY_TUTORIAL + " BOOLEAN" +
+                    UserDatabaseManager.KEY_USERNAME + " TEXT PRIMARY KEY, " +
+                    UserDatabaseManager.KEY_NAME + " TEXT, " +
+                    UserDatabaseManager.KEY_MAIL + " TEXT, " +
+                    UserDatabaseManager.KEY_PASSWORD + " TEXT, " +
+                    UserDatabaseManager.KEY_TUTORIAL + " BOOLEAN" +
+                    ");";
+    public static final String DATABASE_CREATE_ITEM =
+            "CREATE TABLE items(" +
+                    ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT "+
+                    ItemDatabaseManager.KEY_NAME + " TEXT, " +
+                    ItemDatabaseManager.KEY_ID_LIST + " INTEGER, " +
+                    ItemDatabaseManager.KEY_VALUE + " DOUBLE, " +
                     ");";
 
     public DatabaseHelper(Context context) {
@@ -32,12 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DATABASE_CREATE);
+        db.execSQL(DATABASE_CREATE_USER);
+        db.execSQL(DATABASE_CREATE_ITEM);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DatabaseManager.DATABASE_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + UserDatabaseManager.DATABASE_TABLE);
         onCreate(db);
     }
 }
