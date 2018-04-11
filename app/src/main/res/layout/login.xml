@@ -39,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/mail" />
 
             <EditText
                 android:id="@+id/user"
@@ -63,7 +63,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/password" />
 
             <EditText
                 android:id="@+id/password"

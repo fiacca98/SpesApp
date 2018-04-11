@@ -32,7 +32,7 @@ public class Register extends AppCompatActivity {
 
         final EditText editUsername=(EditText)findViewById(R.id.username);
         final EditText editName=(EditText)findViewById(R.id.name);
-        final EditText editMail=(EditText)findViewById(R.id.email);
+        final EditText editMail=(EditText)findViewById(R.id.mail);
         final EditText editPassword=(EditText)findViewById(R.id.password);
 
         Button register = (Button) findViewById(R.id.register);
@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.back_button);
+        toolbar.setNavigationIcon(R.drawable.back);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
