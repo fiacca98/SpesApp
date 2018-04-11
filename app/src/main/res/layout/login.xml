@@ -1,108 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accedi"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
+        android:text="Accedi"
         android:textColor="@color/loginTitle"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="50dp"
+        android:text="@string/app_name"
         android:textColor="@color/loginTitle"
-        android:textSize="30dp"/>
+        android:textSize="30dp" />
 
-<LinearLayout
-    android:layout_width="250dp"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/ic_launcher_background"
-        />
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:hint="pippo@gmail.com"
-        android:textColor="@color/loginTitle"
-        android:gravity="center"/>
-</RelativeLayout>
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_launcher_background"
-            />
-        <EditText
-            android:id="@+id/password"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:hint="******"
-            android:textColor="@color/loginTitle"
-            android:gravity="center"/>
-    </RelativeLayout>
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/notreg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username o password errata"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/red"
-        android:visibility="invisible"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_launcher_background" />
 
-    <Button
-        android:id="@+id/accedi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/buttonSign"
-        android:text="ACCEDI"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Oppure"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/registrati"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crea un account"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/buttonSign"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+            <EditText
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="pippo@gmail.com"
+                android:textColor="@color/loginTitle"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="******"
+                android:textColor="@color/loginTitle"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notreg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Username o password errata"
+            android:textColor="@color/red"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/accedi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@color/buttonSign"
+            android:text="ACCEDI"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Oppure" />
+
+        <TextView
+            android:id="@+id/registrati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Crea un account"
+            android:textColor="@color/buttonSign" />
+    </LinearLayout>
 
 </LinearLayout>
