@@ -63,7 +63,7 @@ public class DatabaseManager {
     public Cursor fetchAllUsers() {
         return database.query(DATABASE_TABLE, null, null, null, null, null, null);
     }
-    public Cursor verifyInsert(String username) {
+    public Cursor readUser(String username) {
         String[] columns = new String[]{KEY_USERNAME};
         return database.query(DATABASE_TABLE, columns, "username = '"+username+"'", null, null, null, null);
     }

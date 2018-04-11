@@ -3,11 +3,8 @@ package com.example.luigi.spesapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.session.MediaSession;
 import android.util.Log;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static java.lang.String.valueOf;
@@ -18,13 +15,12 @@ import static java.lang.String.valueOf;
 
 public class SharedPreferenceUtility {
 
-    public static void setUserOnSharedPreferences(String username, String password, Activity a) {
+    public static void setUserOnSharedPreferences(String username, Activity a) {
 
         SharedPreferences sharedPref = a.getSharedPreferences("User", Context.MODE_PRIVATE );
         SharedPreferences.Editor editor = sharedPref.edit();
 
         editor.putString("Username", username);
-        editor.putString("Password", password);
 
 
         editor.putLong("Token",System.currentTimeMillis());
@@ -36,7 +32,6 @@ public class SharedPreferenceUtility {
     public static String readUserFromSharedPreferences(Context context){
         SharedPreferences sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
         String username = sharedPref.getString("Username",null);
-        String password = sharedPref.getString("Password", null);
         long token = sharedPref.getLong("Token", 0);
 
         Calendar calendar = Calendar.getInstance();

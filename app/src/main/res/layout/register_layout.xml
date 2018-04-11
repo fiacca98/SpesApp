@@ -58,6 +58,7 @@
         android:text="Hai già un account?"
         android:layout_gravity="center"/>
     <TextView
+        android:id="@+id/accediora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accedi ora"

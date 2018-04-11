@@ -44,6 +44,15 @@
         android:layout_gravity="center_horizontal"
         android:textSize="15dp" />
 
+    <TextView
+        android:id="@+id/notreg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username o password errata"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:visibility="invisible"/>
+
     <Button
         android:id="@+id/accedi"
         android:layout_width="wrap_content"
