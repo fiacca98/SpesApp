@@ -8,5 +8,5 @@
     <color name="buttonSign">#58b0e0</color>
     <color name="white">#fff</color>
     <color name="floating_button">#efd307</color>
-    <color name="default_background">#ffff0000</color>
+    <color name="default_background">#eaecef</color>
 </resources>
