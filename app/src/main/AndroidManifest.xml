@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".Register">
         </activity>
+        <activity android:name=".ListDetailActivity">
+        </activity>
     </application>
 
 </manifest>

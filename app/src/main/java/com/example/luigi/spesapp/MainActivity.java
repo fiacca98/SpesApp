@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private MyRecyclerAdapter myAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
     public static LayoutManagerType mCurrentLayoutManagerType;
-
+    public Lista lista;
     public enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
@@ -64,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
                                 ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
                                 listDatabaseManager.open();
                                 Long cursor = listDatabaseManager.createList(String.valueOf(input.getText()),id);
-
+                                lista= new Lista(0,String.valueOf(input.getText()),id);
+                                DataAccessSource.addItem(lista,getApplicationContext());
                                 myAdapter.updateList(getApplicationContext());
+
                                 dialog.cancel();
                             }
                         });
