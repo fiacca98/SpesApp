@@ -2,6 +2,9 @@ package com.example.luigi.spesapp;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,12 +25,13 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String usernameGet = SharedPreferenceUtility.readUserFromSharedPreferences(getApplicationContext());
-        if( usernameGet == null) {
+        if (usernameGet == null) {
             setContentView(R.layout.login);
             Button detailButton = (Button) findViewById(R.id.accedi);
             detailButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Drawable background = v.getBackground();
                     EditText username = (EditText) findViewById(R.id.user);
                     String usernameString = valueOf(username.getText());
                     EditText password = (EditText) findViewById(R.id.password);
@@ -38,11 +42,10 @@ public class Login extends AppCompatActivity {
                     Log.d("cursor", String.valueOf(cursor.moveToFirst()));
                     if (!String.valueOf(cursor.moveToFirst()).equals("false")) {
                         SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, Login.this);
-                        Intent intent = new Intent(Login.this,MainActivity.class);
+                        Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra("username", usernameString);
                         startActivity(intent);
-                    }
-                    else {
+                    } else {
                         TextView notReg = (TextView) findViewById(R.id.notreg);
                         notReg.setVisibility(View.VISIBLE);
                         password.setText("");
@@ -54,13 +57,12 @@ public class Login extends AppCompatActivity {
             register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Login.this,Register.class);
+                    Intent intent = new Intent(Login.this, Register.class);
                     startActivity(intent);
                 }
             });
-        }
-        else {
-            Intent intent = new Intent(Login.this,MainActivity.class);
+        } else {
+            Intent intent = new Intent(Login.this, MainActivity.class);
             intent.putExtra("username", usernameGet);
             startActivity(intent);
         }
