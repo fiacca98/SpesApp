@@ -102,7 +102,7 @@
             android:text="Oppure" />
 
         <TextView
-            android:id="@+id/registrati"
+            android:id="@+id/goToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

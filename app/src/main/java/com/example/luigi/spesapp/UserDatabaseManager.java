@@ -28,7 +28,7 @@ public class UserDatabaseManager {
 
     public UserDatabaseManager open() throws SQLException {
         databaseHelper = new DatabaseHelper(context);
-        database = databaseHelper.getWritableDatabase();
+        //database = databaseHelper.getWritableDatabase();
         return this;
     }
 
