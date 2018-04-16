@@ -16,6 +16,7 @@ public class UserDatabaseManager {
     private Context context;
 
     public static final String DATABASE_TABLE = "users";
+    public static final String KEY_ID = "ID";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_NAME = "name";
     public static final String KEY_MAIL = "email";
@@ -60,7 +61,12 @@ public class UserDatabaseManager {
         return database.query(DATABASE_TABLE, null, null, null, null, null, null);
     }
     public Cursor readUser(String username) {
-        String[] columns = new String[]{KEY_USERNAME};
+        String[] columns = new String[]{"*"};
+        return database.query(DATABASE_TABLE, columns, "username = '"+username+"'", null, null, null, null);
+    }
+
+    public Cursor getUserId(String username){
+        String[] columns = new String[]{KEY_ID};
         return database.query(DATABASE_TABLE, columns, "username = '"+username+"'", null, null, null, null);
     }
 }

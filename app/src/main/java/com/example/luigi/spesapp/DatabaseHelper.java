@@ -16,18 +16,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_CREATE_USER =
             "CREATE TABLE users(" +
-                    UserDatabaseManager.KEY_USERNAME + " TEXT PRIMARY KEY, " +
+                    UserDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    UserDatabaseManager.KEY_USERNAME + " TEXT, " +
                     UserDatabaseManager.KEY_NAME + " TEXT, " +
                     UserDatabaseManager.KEY_MAIL + " TEXT, " +
                     UserDatabaseManager.KEY_PASSWORD + " TEXT, " +
                     UserDatabaseManager.KEY_TUTORIAL + " BOOLEAN" +
                     ");";
+
+    public static final String DATABASE_CREATE_LIST =
+            "CREATE TABLE lists(" +
+                    ListDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+                    ListDatabaseManager.KEY_NAME + " TEXT, " +
+                    ListDatabaseManager.KEY_ID_USER + " INTEGER" +
+                    ");";
+
     public static final String DATABASE_CREATE_ITEM =
             "CREATE TABLE items(" +
-                    ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT "+
+                    ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "+
                     ItemDatabaseManager.KEY_NAME + " TEXT, " +
                     ItemDatabaseManager.KEY_ID_LIST + " INTEGER, " +
-                    ItemDatabaseManager.KEY_VALUE + " DOUBLE, " +
+                    ItemDatabaseManager.KEY_VALUE + " INTEGER" +
                     ");";
 
     public DatabaseHelper(Context context) {
@@ -37,12 +46,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE_USER);
+        db.execSQL(DATABASE_CREATE_LIST);
         db.execSQL(DATABASE_CREATE_ITEM);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + UserDatabaseManager.DATABASE_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ItemDatabaseManager.DATABASE_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + ListDatabaseManager.DATABASE_TABLE);
         onCreate(db);
     }
 }

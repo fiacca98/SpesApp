@@ -1,7 +1,9 @@
 package com.example.luigi.spesapp;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +22,13 @@ import java.util.List;
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
 
     List<Lista> liste = new ArrayList<Lista>();
+    ListDatabaseManager listDatabaseManager;
+    UserDatabaseManager userDatabaseManager;
+    int userId;
 
     public MyRecyclerAdapter(Context context) {
-        Main_Singleton.getInstance().addLista(this.mockListe("spesa venerdi"));
-        Main_Singleton.getInstance().addLista(this.mockListe("spesa pasquetta"));
-        Main_Singleton.getInstance().addLista(this.mockListe("spesa sabato"));
-        this.liste = Main_Singleton.getInstance().getListe();
+
+        this.updateList(context);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -38,6 +41,35 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
             infoText = (TextView) view.findViewById(R.id.info_text);
             context = view.getContext();
         }
+    }
+
+
+    public void updateList(Context context){
+        String username = SharedPreferenceUtility.readUserFromSharedPreferences(context);
+        userDatabaseManager = new UserDatabaseManager(context);
+        userDatabaseManager.open();
+        Cursor userCursor = userDatabaseManager.getUserId(username);
+        userCursor.moveToFirst();
+        this.userId = userCursor.getInt(userCursor.getColumnIndex(userDatabaseManager.KEY_ID));
+
+        listDatabaseManager = new ListDatabaseManager(context);
+        listDatabaseManager.open();
+        Cursor cursor = listDatabaseManager.getListsByUser(this.userId);
+        cursor.moveToFirst();
+        int index = cursor.getCount();
+        if(index > 0){
+            int i = 0;
+            this.liste.clear();
+            do{
+                Lista lista = new Lista(cursor.getInt(cursor.getColumnIndex(listDatabaseManager.KEY_ID)),
+                        cursor.getString(cursor.getColumnIndex(listDatabaseManager.KEY_NAME)),
+                        cursor.getInt(cursor.getColumnIndex(listDatabaseManager.KEY_ID_USER)));
+                this.liste.add(lista);
+                i++;
+                cursor.moveToNext();
+            }while (i<index);
+        }
+
     }
 
     @Override
@@ -74,10 +106,5 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @Override
     public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, int position) {
         holder.infoText.setText(liste.get(position).getNome());
-    }
-
-    public Lista mockListe(String nome){
-        Lista lista = new Lista(1,nome,1);
-        return lista;
     }
 }

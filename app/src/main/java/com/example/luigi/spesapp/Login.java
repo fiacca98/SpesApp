@@ -37,7 +37,8 @@ public class Login extends AppCompatActivity {
                     Cursor cursor = dbManager.readUser(usernameString);
                     Log.d("cursor", String.valueOf(cursor.moveToFirst()));
                     if (!String.valueOf(cursor.moveToFirst()).equals("false")) {
-                        SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, Login.this);
+
+                        SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, cursor.getInt(cursor.getColumnIndex(dbManager.KEY_ID)),Login.this);
                         Intent intent = new Intent(Login.this,MainActivity.class);
                         intent.putExtra("username", usernameString);
                         startActivity(intent);

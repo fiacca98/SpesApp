@@ -1,18 +1,30 @@
 package com.example.luigi.spesapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
-    private RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> myAdapter;
+    private MyRecyclerAdapter myAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
     public static LayoutManagerType mCurrentLayoutManagerType;
 
@@ -31,6 +43,43 @@ public class MainActivity extends AppCompatActivity {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context thisContext = MainActivity.this;
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        final EditText input = new EditText(MainActivity.this);
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        builder.setTitle("AGGIUNGI LISTA");
+                        builder.setView(input);
+                        builder.setPositiveButton("CREA", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                int id = SharedPreferenceUtility.readIdFromSharedPreference(getApplicationContext());
+                                ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
+                                listDatabaseManager.open();
+                                Long cursor = listDatabaseManager.createList(String.valueOf(input.getText()),id);
+
+                                myAdapter.updateList(getApplicationContext());
+                                dialog.cancel();
+                            }
+                        });
+                        builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+                    }
+                });
+            }
+        });
     }
 
     @Override

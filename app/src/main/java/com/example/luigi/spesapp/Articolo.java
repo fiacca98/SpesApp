@@ -6,11 +6,11 @@ package com.example.luigi.spesapp;
 
 public class Articolo {
     private String nome;
-    private int id;
+    private final int id;
     private int id_lista;
-    private double quantita;
+    private int quantita;
 
-    public Articolo(String nome, int id, int id_lista, double quantita) {
+    public Articolo(String nome, int id, int id_lista, int quantita) {
         this.nome = nome;
         this.id = id;
         this.id_lista = id_lista;

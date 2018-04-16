@@ -47,7 +47,9 @@ public class Register extends AppCompatActivity {
                 userDatabaseManager.createUser(editUsername.getText().toString(),editName.getText().toString(),editMail.getText().toString(),editPassword.getText().toString(), false);
                 cursor= userDatabaseManager.readUser(editUsername.getText().toString());
                 if (String.valueOf(cursor.moveToFirst()).equals("true")) {
-                    SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(), Register.this);
+                    cursor.moveToFirst();
+                    int id = cursor.getInt(cursor.getColumnIndex("ID"));
+                    SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(),id, Register.this);
                     Intent intent = new Intent(Register.this, MainActivity.class);
                     intent.putExtra("username", editUsername.getText().toString());
                     startActivity(intent);
