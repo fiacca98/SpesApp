@@ -51,8 +51,8 @@ public class Login extends AppCompatActivity {
                     dbManager.close();
                 }
             });
-            TextView registrati = (TextView) findViewById(R.id.registrati);
-            registrati.setOnClickListener(new View.OnClickListener() {
+            TextView register = (TextView) findViewById(R.id.goToRegister);
+            register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Login.this,Register.class);
