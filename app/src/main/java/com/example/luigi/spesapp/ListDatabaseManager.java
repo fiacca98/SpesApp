@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.List;
-
 /**
  * Created by luigi on 11/04/2018.
  */
@@ -46,6 +44,10 @@ public class ListDatabaseManager {
     public long createList(String name, int id_user) {
         ContentValues initialValues = createContentValues(name, id_user);
         return database.insertOrThrow(DATABASE_TABLE, null, initialValues);
+    }
+
+    public int deleteList(int id){
+        return database.delete(DATABASE_TABLE,"id = "+id,null);
     }
 
     public boolean updateList(Lista lista) {

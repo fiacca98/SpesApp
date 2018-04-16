@@ -1,12 +1,17 @@
 package com.example.luigi.spesapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.luigi.spesapp.R;
@@ -32,12 +37,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
+        View myView;
         TextView infoText;
         Context context;
 
         public MyViewHolder(View view){
             super(view);
+            myView = view;
             infoText = (TextView) view.findViewById(R.id.info_text);
             context = view.getContext();
         }
@@ -69,6 +75,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 cursor.moveToNext();
             }while (i<index);
         }
+        else {
+            this.liste.clear();
+        }
+        cursor.close();
+        listDatabaseManager.close();
+
+        int test = this.liste.size();
 
     }
 
@@ -106,5 +119,43 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @Override
     public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, int position) {
         holder.infoText.setText(liste.get(position).getNome());
+        int id = liste.get(position).getId_lista();
+        holder.myView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(holder.context);
+                final TextView input = new TextView(holder.context);
+                input.setText("Sei sicuro di voler eliminare questa lista?");
+                builder.setTitle("ELIMINA LISTA");
+                builder.setView(input);
+                builder.setPositiveButton("CANCELLA", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListDatabaseManager listDatabaseManager = new ListDatabaseManager(holder.context);
+                        listDatabaseManager.open();
+                        int cursor = listDatabaseManager.deleteList(id);
+                        listDatabaseManager.close();
+                        Log.d("delete", "ho cancellato "+cursor+" linee");
+                        updateList(holder.context);
+                        notifyItemRemoved(position);
+                        dialog.cancel();
+
+                    }
+                });
+                builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+                return true;
+
+            }
+        });
+
     }
+
+
+
 }
