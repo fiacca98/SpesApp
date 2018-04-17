@@ -54,8 +54,9 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        double quantity=itemList.get(position).getQuantita();
         viewHolder.nameHolder.setText(itemList.get(position).getNome());
-        viewHolder.valueHolder.setText((int) itemList.get(position).getQuantita());
+        viewHolder.valueHolder.setText(String.valueOf(quantity));
 
        return convertView;
     }
@@ -69,7 +70,6 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
 
 
     public void setValues() {
-        //values=Singleton.getInstance().getItemList();
         notifyDataSetChanged();
     }
 
