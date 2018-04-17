@@ -10,11 +10,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by corsista on 16/04/2018.
@@ -23,6 +29,8 @@ import android.widget.TextView;
 public class ListDetailActivity extends AppCompatActivity {
     Articolo articolo;
     AdapterActivity adapter;
+    MyRecyclerAdapter myRecyclerAdapter;
+    List<Articolo> itemList= new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +46,9 @@ public class ListDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(name);
 
-        adapter=new AdapterActivity(getApplicationContext());
+        adapter=new AdapterActivity(getApplicationContext(),itemList );
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +62,18 @@ public class ListDetailActivity extends AppCompatActivity {
                         final EditText name = new EditText(ListDetailActivity.this);
                         final EditText value = new EditText(ListDetailActivity.this);
                         name.setInputType(InputType.TYPE_CLASS_TEXT);
-                        value.setInputType(InputType.TYPE_CLASS_TEXT);
                         builder.setTitle("Aggiungi Articolo");
-                        builder.setView(name);
-                        builder.setView(value);
+
+                        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+                        linearLayout.setMinimumWidth(1000);
+                        linearLayout.addView(name);
+                        linearLayout.addView(value);
+                        linearLayout.setOrientation(linearLayout.VERTICAL);
+                        name.setHint("Nome");
+                        value.setHint("Quantità");
+                        name.setWidth(500);
+                        value.setWidth(500);
+                        builder.setView(linearLayout);
                         builder.setPositiveButton("Aggiungi", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -68,7 +83,9 @@ public class ListDetailActivity extends AppCompatActivity {
                                 itemDatabaseManager.open();
                                 Long cursor = itemDatabaseManager.createItem(String.valueOf(name.getText()), id_list, Integer.parseInt(String.valueOf(value.getText())));
                                 articolo = new Articolo(String.valueOf(name.getText()), 0, id_list, Integer.parseInt(String.valueOf(value.getText())));
+                                Log.d("cursor",cursor.toString());
                                 adapter.updateItem(getApplicationContext());
+
                                 adapter.setValues();
 
                                 dialog.cancel();

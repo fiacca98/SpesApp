@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,12 +21,12 @@ import java.util.List;
 
 public class AdapterActivity extends ArrayAdapter<Articolo> {
     private final Context context;
-    private List<Articolo> itemList;
+    private List<Articolo> itemList= new ArrayList<Articolo>();
 
     //costruttore
-    public AdapterActivity(Context context) {
+    public AdapterActivity(Context context, List <Articolo> itemList) {
 
-        super(context, R.layout.item_detail_layout);
+        super(context, R.layout.item_detail_layout, itemList);
         this.itemList = itemList;
         this.context = context;
     }
@@ -53,7 +54,9 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //Recupero il valore della mia preference e setto la stella visibile se corrispondono i numeri di cellulare
+        viewHolder.nameHolder.setText(itemList.get(position).getNome());
+        viewHolder.valueHolder.setText((int) itemList.get(position).getQuantita());
+
        return convertView;
     }
 
@@ -70,10 +73,10 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
         notifyDataSetChanged();
     }
 
-    /*@Override
+    @Override
     public int getCount() {
-        //return itemList.size();
-    }*/
+        return itemList.size();
+    }
 
     public void updateItem(Context context) {
 
@@ -85,7 +88,7 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
         int index = cursor.getCount();
         if (index > 0) {
             int i = 0;
-            this.itemList.clear();
+             this.itemList.clear();
             do {
                 Articolo item = new Articolo(cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_NAME)),
                         cursor.getInt(cursor.getColumnIndex(ItemDatabaseManager.KEY_ID)),

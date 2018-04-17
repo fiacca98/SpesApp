@@ -24,6 +24,8 @@ import java.util.List;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
 
+    int listID;
+
     List<Lista> liste = new ArrayList<Lista>();
     ListDatabaseManager listDatabaseManager;
     UserDatabaseManager userDatabaseManager;
@@ -54,7 +56,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         }
     }
 
-
     public void updateList(Context context) {
         String username = SharedPreferenceUtility.readUserFromSharedPreferences(context);
         userDatabaseManager = new UserDatabaseManager(context);
@@ -80,7 +81,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 cursor.moveToNext();
             } while (i < index);
         }
+    }
 
+    public int getListID(int position){
+        return liste.get(position).getId_lista();
     }
 
     @Override
