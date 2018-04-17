@@ -49,7 +49,7 @@ public class ListDetailActivity extends AppCompatActivity {
         String nameList = fromAdapter.getStringExtra("nome");
 
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerDetail);
-        itemRecyclerAdapter = new ItemRecyclerAdapter(getApplicationContext(),nameList);
+        itemRecyclerAdapter = new ItemRecyclerAdapter(getApplicationContext());
         myLayoutManager = new LinearLayoutManager(this);
         mCurrentLayoutManagerType = ListDetailActivity.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);

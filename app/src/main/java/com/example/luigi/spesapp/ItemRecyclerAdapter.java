@@ -25,9 +25,8 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     String name;
     List<Articolo> liste = new ArrayList<>();
 
-    public ItemRecyclerAdapter(Context context, String name) {
+    public ItemRecyclerAdapter(Context context) {
         this.updateList(context);
-        this.name=name;
     }
 
     @Override
@@ -67,9 +66,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
         listDatabaseManager = new ListDatabaseManager(context);
         listDatabaseManager.open();
-        Cursor listCursor = listDatabaseManager.getListsByName(name);
-
-        listID=listCursor.getInt(listCursor.getColumnIndex(listDatabaseManager.KEY_ID));
+        Cursor listCursor = listDatabaseManager.getListsByUser(1);
+        listCursor.moveToFirst();
+        this.listID=listCursor.getInt(listCursor.getColumnIndex(listDatabaseManager.KEY_ID));
 
 
         itemDatabaseManager = new ItemDatabaseManager(context);
@@ -85,6 +84,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                         cursor.getInt(cursor.getColumnIndex(ItemDatabaseManager.KEY_ID)),
                         cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_ID_LIST)),
                         cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_VALUE)));
+                this.liste.add(item);
                 i++;
                 cursor.moveToNext();
             } while (i < index);
