@@ -3,8 +3,6 @@ package com.example.luigi.spesapp;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,16 +13,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
-    private MyRecyclerAdapter myAdapter;
+    private ListRecyclerAdapter myAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
     public static LayoutManagerType mCurrentLayoutManagerType;
     public Lista lista;
@@ -38,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        myAdapter = new MyRecyclerAdapter(getApplicationContext());
+        myAdapter = new ListRecyclerAdapter(getApplicationContext());
         myLayoutManager = new LinearLayoutManager(this);
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
@@ -64,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
                                 ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
                                 listDatabaseManager.open();
                                 Long cursor = listDatabaseManager.createList(String.valueOf(input.getText()),id);
-                                lista= new Lista(0,String.valueOf(input.getText()),id);
-                                DataAccessSource.addItem(lista,getApplicationContext());
                                 myAdapter.updateList(getApplicationContext());
 
                                 dialog.cancel();
@@ -142,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
-        myAdapter = new MyRecyclerAdapter(getApplicationContext());
+        myAdapter = new ListRecyclerAdapter(getApplicationContext());
         myRecyclerView.setAdapter(myAdapter);
 
         myRecyclerView.setLayoutManager(myLayoutManager);

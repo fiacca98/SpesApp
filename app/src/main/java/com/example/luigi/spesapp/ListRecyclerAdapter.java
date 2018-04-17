@@ -12,9 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.luigi.spesapp.R;
-import com.example.luigi.spesapp.MainActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +19,7 @@ import java.util.List;
  * Created by luigi on 09/04/2018.
  */
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
+public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.MyViewHolder> {
 
     int listID;
 
@@ -31,8 +28,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     UserDatabaseManager userDatabaseManager;
     int userId;
 
-    public MyRecyclerAdapter(Context context) {
-
+    public ListRecyclerAdapter(Context context) {
         this.updateList(context);
     }
 
@@ -41,7 +37,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         TextView infoText;
         Context context;
         View myView;
-
+        ListDatabaseManager listDatabaseManager;
         public MyViewHolder(View view) {
             super(view);
             myView = view;
@@ -88,7 +84,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     @Override
-    public MyRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
 
         switch (MainActivity.mCurrentLayoutManagerType) {
@@ -117,7 +113,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(ListRecyclerAdapter.MyViewHolder holder, int position) {
         holder.infoText.setText(liste.get(position).getNome());
 
         int id = liste.get(position).getId_lista();

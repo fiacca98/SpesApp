@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -27,28 +30,40 @@ import java.util.List;
  */
 
 public class ListDetailActivity extends AppCompatActivity {
-    Articolo articolo;
-    AdapterActivity adapter;
-    MyRecyclerAdapter myRecyclerAdapter;
-    List<Articolo> itemList= new ArrayList<>();
+    private RecyclerView myRecyclerView;
+    private ItemRecyclerAdapter itemRecyclerAdapter;
+    private RecyclerView.LayoutManager myLayoutManager;
+    public static ListDetailActivity.LayoutManagerType mCurrentLayoutManagerType;
+    public Articolo articolo;
+
+    public enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_detail_layout);
 
         Intent fromAdapter = getIntent();
-        String name = fromAdapter.getStringExtra("nome");
+        String nameList = fromAdapter.getStringExtra("nome");
+
+        myRecyclerView = (RecyclerView) findViewById(R.id.recyclerDetail);
+        itemRecyclerAdapter = new ItemRecyclerAdapter(getApplicationContext(),nameList);
+        myLayoutManager = new LinearLayoutManager(this);
+        mCurrentLayoutManagerType = ListDetailActivity.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        myRecyclerView.setLayoutManager(myLayoutManager);
+        myRecyclerView.setAdapter(itemRecyclerAdapter);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(name);
+        getSupportActionBar().setTitle(nameList);
 
-        adapter=new AdapterActivity(getApplicationContext(),itemList );
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,15 +93,17 @@ public class ListDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                int id_list = SharedPreferenceUtility.readIdFromSharedPreference(getApplicationContext());
+                                ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
+                                listDatabaseManager.open();
+                                Cursor listCursor =  listDatabaseManager.getListsByName(nameList);
+                                listCursor.moveToFirst();
+                                int id_list=listCursor.getInt(listCursor.getColumnIndex(listDatabaseManager.KEY_ID));
+
                                 ItemDatabaseManager itemDatabaseManager = new ItemDatabaseManager(getApplicationContext());
                                 itemDatabaseManager.open();
                                 Long cursor = itemDatabaseManager.createItem(String.valueOf(name.getText()), id_list, Integer.parseInt(String.valueOf(value.getText())));
-                                articolo = new Articolo(String.valueOf(name.getText()), 0, id_list, Integer.parseInt(String.valueOf(value.getText())));
                                 Log.d("cursor",cursor.toString());
-                                adapter.updateItem(getApplicationContext());
-
-                                adapter.setValues();
+                                itemRecyclerAdapter.updateList(getApplicationContext());
 
                                 dialog.cancel();
                             }
