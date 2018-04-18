@@ -1,11 +1,14 @@
 package com.example.luigi.spesapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     ItemDatabaseManager itemDatabaseManager;
     String name;
     List<Articolo> articoli = new ArrayList<>();
+    boolean nascondi = false;
 
 
     public ItemRecyclerAdapter(Context context) {
@@ -40,6 +44,33 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
         holder.foodName.setText(articoli.get(position).getNome());
         holder.foodValue.setText(String.valueOf(articoli.get(position).getQuantita()));
+
+        if (articoli.get(position).getBuyed() == 1) {
+            holder.check.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.check.setVisibility(View.INVISIBLE);
+        }
+
+        holder.myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(articoli.get(position).getBuyed() == 0) {
+                    articoli.get(position).setBuyed(1);
+                }
+                else {
+                    articoli.get(position).setBuyed(0);
+                }
+
+                Log.d("articolo", articoli.get(position).getNome() );
+                ItemDatabaseManager itemDatabaseManager = new ItemDatabaseManager(holder.context);
+                itemDatabaseManager.open();
+                itemDatabaseManager.updateItem(articoli.get(position));
+                updateList(holder.context);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -50,13 +81,17 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         TextView foodName, foodValue;
         View myView;
+        ImageView check;
+        View filtro;
         Context context;
+        Articolo articolo;
 
         public ItemViewHolder(View view) {
             super(view);
             myView = view;
             foodName = (TextView) view.findViewById(R.id.foodName);
             foodValue = (TextView) view.findViewById(R.id.foodValue);
+            check = (ImageView) view.findViewById(R.id.check);
             context = view.getContext();
         }
     }
@@ -77,8 +112,14 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 Articolo item = new Articolo(cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_NAME)),
                         cursor.getInt(cursor.getColumnIndex(ItemDatabaseManager.KEY_ID)),
                         cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_ID_LIST)),
-                        cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_VALUE)));
-                this.articoli.add(item);
+                        cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_VALUE)),
+                        cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_BUYED)));
+                if(nascondi == true && item.getBuyed() == 1){
+                    //articolo comprato
+                }
+                else {
+                    this.articoli.add(item);
+                }
                 i++;
                 cursor.moveToNext();
             } while (i < index);
@@ -100,9 +141,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     public ItemRecyclerAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_layout, parent, false);
-
-
-
         return new ItemViewHolder(itemView);
     }
 

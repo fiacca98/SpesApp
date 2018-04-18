@@ -39,9 +39,9 @@ public class Login extends AppCompatActivity {
                     if (!String.valueOf(cursor.moveToFirst()).equals("false")) {
 
                         SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, cursor.getInt(cursor.getColumnIndex(dbManager.KEY_ID)),Login.this);
-                        Intent intent = new Intent(Login.this,MainActivity.class);
-                        intent.putExtra("username", usernameString);
-                        startActivity(intent);
+                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.putExtra("username", usernameString);
+                            startActivity(intent);
                     }
                     else {
                         TextView notReg = (TextView) findViewById(R.id.notreg);

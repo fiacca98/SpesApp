@@ -21,6 +21,7 @@ public class ItemDatabaseManager {
     public static final String KEY_NAME = "name";
     public static final String KEY_ID_LIST = "id_list";
     public static final String KEY_VALUE = "value";
+    public static final String KEY_BUYED = "buyed";
 
     public ItemDatabaseManager(Context context) {
         this.context = context;
@@ -36,21 +37,22 @@ public class ItemDatabaseManager {
         databaseHelper.close();
     }
 
-    private ContentValues createContentValues(String name, int id_list, String value) {
+    private ContentValues createContentValues(String name, int id_list, String value, int buyed) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_NAME,name);
         contentValues.put(KEY_ID_LIST, id_list);
         contentValues.put(KEY_VALUE, value);
+        contentValues.put(KEY_BUYED, buyed);
         return contentValues;
     }
 
     public long createItem(String name, int id_list, String value) {
-        ContentValues initialValues = createContentValues(name, id_list, value);
+        ContentValues initialValues = createContentValues(name, id_list, value, 0);
         return database.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }
 
     public boolean updateItem(Articolo articolo) {
-        ContentValues updateValues = createContentValues(articolo.getNome(),articolo.getId_lista(),articolo.getQuantita());
+        ContentValues updateValues = createContentValues(articolo.getNome(),articolo.getId_lista(),articolo.getQuantita(), articolo.getBuyed());
         return database.update(DATABASE_TABLE, updateValues, KEY_ID + "=" + articolo.getId(), null) > 0;
     }
 

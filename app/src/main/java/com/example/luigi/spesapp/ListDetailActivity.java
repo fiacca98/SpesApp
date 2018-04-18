@@ -35,6 +35,8 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
     private RecyclerView.LayoutManager myLayoutManager;
     public static ListDetailActivity.LayoutManagerType mCurrentLayoutManagerType;
     public Articolo articolo;
+    public View filtro;
+    boolean nascondi = false;
 
     @Override
     public int getListId() {
@@ -51,6 +53,25 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_detail_layout);
+        this.filtro = findViewById(R.id.filtro);
+
+        filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(nascondi == false) {
+                    findViewById(R.id.checkFiltro).setVisibility(View.VISIBLE);
+                    nascondi = true;
+                }
+                else {
+                    findViewById(R.id.checkFiltro).setVisibility(View.INVISIBLE);
+                    nascondi = false;
+                }
+                itemRecyclerAdapter.notifyDataSetChanged();
+                itemRecyclerAdapter.nascondi = nascondi;
+                itemRecyclerAdapter.updateList(ListDetailActivity.this);
+                itemRecyclerAdapter.notifyDataSetChanged();
+            }
+        });
 
         Intent fromAdapter = getIntent();
         String nameList = fromAdapter.getStringExtra("nome");

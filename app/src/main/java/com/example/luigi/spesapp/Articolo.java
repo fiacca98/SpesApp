@@ -9,12 +9,14 @@ public class Articolo {
     private final int id;
     private int id_lista;
     private String quantita;
+    private int buyed;
 
-    public Articolo(String nome, int id, int id_lista, String quantita) {
+    public Articolo(String nome, int id, int id_lista, String quantita, int buyed) {
         this.nome = nome;
         this.id = id;
         this.id_lista = id_lista;
         this.quantita = quantita;
+        this.buyed = buyed;
     }
 
     public String getNome() {
@@ -31,5 +33,13 @@ public class Articolo {
 
     public String getQuantita() {
         return quantita;
+    }
+
+    public int getBuyed() {
+        return buyed;
+    }
+
+    public void setBuyed(int buyed) {
+        this.buyed = buyed;
     }
 }

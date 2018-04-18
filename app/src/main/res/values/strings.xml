@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SpesApp</string>
+    <string name="textTop">Crea e organizza le tue liste</string>
+    <string name="attributi">Inserisci gli attributi</string>
+    <string name="spesa">Fai la spesa</string>
 </resources>

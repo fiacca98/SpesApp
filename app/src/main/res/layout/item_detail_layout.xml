@@ -21,8 +21,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@drawable/cibo">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/food"
@@ -35,16 +34,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/foodName"
-                android:layout_marginLeft="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="130dp"
                 tools:text="Nome"
                 android:textColor="@color/cardview_dark_background"/>
+
             <TextView
+                android:id="@+id/foodValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/foodValue"
-                android:layout_marginLeft="50dp"
-                tools:text="Quantità"
-                android:textColor="@color/cardview_dark_background"/>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="260dp"
+                android:textColor="@color/cardview_dark_background"
+                tools:text="Quantità" />
+
+            <ImageView
+                android:id="@+id/check"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_checked"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 

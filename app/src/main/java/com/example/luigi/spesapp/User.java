@@ -6,9 +6,9 @@ package com.example.luigi.spesapp;
 
 class User {
     String username,name,email,password;
-    Boolean tutorial;
+    int tutorial;
 
-    public User (String username, String name, String email, String password, Boolean tutorial){
+    public User (String username, String name, String email, String password, int tutorial){
         this.username=username;
         this.email=email;
         this.password=password;
@@ -32,7 +32,7 @@ class User {
         return password;
     }
 
-    public Boolean getTutorial() {
+    public int getTutorial() {
         return tutorial;
     }
 }
