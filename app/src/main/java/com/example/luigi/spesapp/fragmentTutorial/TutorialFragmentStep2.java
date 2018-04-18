@@ -1,5 +1,6 @@
 package com.example.luigi.spesapp.fragmentTutorial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.luigi.spesapp.MainActivity;
 import com.example.luigi.spesapp.R;
 
 
@@ -32,6 +34,14 @@ public class TutorialFragmentStep2 extends Fragment {
             @Override
             public void onClick(View v) {
                 changePageFragment.changhePage(2);
+            }
+        });
+        Button skip=(Button) rootView.findViewById(R.id.skip);
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
             }
         });
         TextView description = (TextView) rootView.findViewById(R.id.step_description);
