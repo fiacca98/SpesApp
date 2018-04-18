@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             intent.putExtra("username", usernameString);
                             startActivity(intent);
-                        finish();
+                            finish();
                     } else {
                         TextView notReg = (TextView) findViewById(R.id.notreg);
                         notReg.setVisibility(View.VISIBLE);

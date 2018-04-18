@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity {
             Intent intent = new Intent(Register.this, MainActivity.class);
             intent.putExtra("username", SharedPreferenceUtility.readUserFromSharedPreferences(getApplicationContext()));
             startActivity(intent);
+            finish();
         }
         setContentView(R.layout.register_layout);
 
@@ -54,7 +55,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String use = editUsername.getText().toString();
-                userDatabaseManager.createUser(editUsername.getText().toString(), editName.getText().toString(), editMail.getText().toString(), editPassword.getText().toString(), false);
+                userDatabaseManager.createUser(editUsername.getText().toString(), editName.getText().toString(), editMail.getText().toString(), editPassword.getText().toString(), 0);
                 cursor = userDatabaseManager.readUser(editUsername.getText().toString());
                 if (String.valueOf(cursor.moveToFirst()).equals("true")) {
                     cursor.moveToFirst();
@@ -66,11 +67,13 @@ public class Register extends AppCompatActivity {
                         Intent intent = new Intent(Register.this, TutorialActivity.class);
                         intent.putExtra("username", editUsername.getText().toString());
                         startActivity(intent);
+                        finish();
                     }
                     else {
                         Intent intent = new Intent(Register.this, MainActivity.class);
                         intent.putExtra("username", editUsername.getText().toString());
                         startActivity(intent);
+                        finish();
                     }
                 }
                 userDatabaseManager.close();
