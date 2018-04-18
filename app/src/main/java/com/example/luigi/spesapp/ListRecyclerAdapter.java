@@ -50,7 +50,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("id",id));
+            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("id",id).putExtra("nome",infoText.getText()));
 
         }
     }

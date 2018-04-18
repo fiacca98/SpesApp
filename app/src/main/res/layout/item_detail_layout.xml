@@ -13,17 +13,16 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         card_view:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="2dp">
+        card_view:cardCornerRadius="2dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/cibo">
 
             <ImageView
                 android:id="@+id/food"
@@ -47,7 +46,7 @@
                 tools:text="Quantità"
                 android:textColor="@color/cardview_dark_background"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
 

@@ -44,14 +44,14 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/mail" />
+                android:src="@drawable/user" />
 
             <EditText
                 android:id="@+id/user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="pippo@gmail.com"
+                android:hint="username"
                 android:textColor="@color/loginTitle"
                 android:textSize="15dp" />
         </RelativeLayout>
