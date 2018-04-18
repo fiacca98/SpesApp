@@ -8,9 +8,9 @@ public class Articolo {
     private String nome;
     private final int id;
     private int id_lista;
-    private int quantita;
+    private String quantita;
 
-    public Articolo(String nome, int id, int id_lista, int quantita) {
+    public Articolo(String nome, int id, int id_lista, String quantita) {
         this.nome = nome;
         this.id = id;
         this.id_lista = id_lista;
@@ -29,7 +29,7 @@ public class Articolo {
         return id_lista;
     }
 
-    public double getQuantita() {
+    public String getQuantita() {
         return quantita;
     }
 }

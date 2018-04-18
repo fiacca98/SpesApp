@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
     private ListRecyclerAdapter myAdapter;
-    private GridLayoutManager myLayoutManager;
+    private RecyclerView.LayoutManager myLayoutManager;
     public static LayoutManagerType mCurrentLayoutManagerType;
     public Lista lista;
     public enum LayoutManagerType {
@@ -33,16 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("SpesApp");
-
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         myAdapter = new ListRecyclerAdapter(getApplicationContext());
-        myLayoutManager = new GridLayoutManager(this,2);
+        myLayoutManager = new LinearLayoutManager(this);
         mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
@@ -93,4 +85,60 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_change: {
+
+                switch (mCurrentLayoutManagerType) {
+                    case GRID_LAYOUT_MANAGER:
+                        setRecyclerViewLayoutManager(LayoutManagerType.LINEAR_LAYOUT_MANAGER);
+                        break;
+                    case LINEAR_LAYOUT_MANAGER:
+                        setRecyclerViewLayoutManager(LayoutManagerType.GRID_LAYOUT_MANAGER);
+                        break;
+                    default:
+                        setRecyclerViewLayoutManager(LayoutManagerType.LINEAR_LAYOUT_MANAGER);
+                }
+
+
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
+
+    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+        int scrollPosition = 0;
+
+        // If a layout manager has already been set, get current scroll position.
+        if (myRecyclerView.getLayoutManager() != null) {
+            scrollPosition = ((LinearLayoutManager) myRecyclerView.getLayoutManager())
+                    .findFirstCompletelyVisibleItemPosition();
+        }
+
+        switch (layoutManagerType) {
+            case GRID_LAYOUT_MANAGER:
+                myLayoutManager = new GridLayoutManager(this, 2);
+                mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
+                break;
+            case LINEAR_LAYOUT_MANAGER:
+                myLayoutManager = new LinearLayoutManager(this);
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                break;
+            default:
+                myLayoutManager = new LinearLayoutManager(this);
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        }
+
+        myAdapter = new ListRecyclerAdapter(getApplicationContext());
+        myRecyclerView.setAdapter(myAdapter);
+
+        myRecyclerView.setLayoutManager(myLayoutManager);
+        myRecyclerView.scrollToPosition(scrollPosition);
+    }
 }

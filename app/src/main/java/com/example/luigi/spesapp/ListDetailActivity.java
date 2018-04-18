@@ -29,12 +29,19 @@ import java.util.List;
  * Created by corsista on 16/04/2018.
  */
 
-public class ListDetailActivity extends AppCompatActivity {
+public class ListDetailActivity extends AppCompatActivity implements DetailInterface{
     private RecyclerView myRecyclerView;
     private ItemRecyclerAdapter itemRecyclerAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
     public static ListDetailActivity.LayoutManagerType mCurrentLayoutManagerType;
     public Articolo articolo;
+
+    @Override
+    public int getListId() {
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id",0);
+        return id;
+    }
 
     public enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -49,7 +56,7 @@ public class ListDetailActivity extends AppCompatActivity {
         String nameList = fromAdapter.getStringExtra("nome");
 
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerDetail);
-        itemRecyclerAdapter = new ItemRecyclerAdapter(getApplicationContext());
+        itemRecyclerAdapter = new ItemRecyclerAdapter(ListDetailActivity.this);
         myLayoutManager = new LinearLayoutManager(this);
         mCurrentLayoutManagerType = ListDetailActivity.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
@@ -98,17 +105,13 @@ public class ListDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
-                                listDatabaseManager.open();
-                                Cursor listCursor =  listDatabaseManager.getListsByName(nameList);
-                                listCursor.moveToFirst();
-                                int id_list=listCursor.getInt(listCursor.getColumnIndex(listDatabaseManager.KEY_ID));
+                                int id_list= getIntent().getIntExtra("id", 0);
 
-                                ItemDatabaseManager itemDatabaseManager = new ItemDatabaseManager(getApplicationContext());
+                                ItemDatabaseManager itemDatabaseManager = new ItemDatabaseManager(ListDetailActivity.this);
                                 itemDatabaseManager.open();
-                                Long cursor = itemDatabaseManager.createItem(String.valueOf(name.getText()), id_list, Integer.parseInt(String.valueOf(value.getText())));
+                                Long cursor = itemDatabaseManager.createItem(String.valueOf(name.getText()), id_list, String.valueOf(value.getText()));
                                 Log.d("cursor",cursor.toString());
-                                itemRecyclerAdapter.updateList(getApplicationContext());
+                                itemRecyclerAdapter.updateList(ListDetailActivity.this);
 
                                 dialog.cancel();
                             }
