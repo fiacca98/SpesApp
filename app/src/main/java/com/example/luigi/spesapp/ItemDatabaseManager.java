@@ -17,7 +17,7 @@ public class ItemDatabaseManager {
     private Context context;
 
     public static final String DATABASE_TABLE = "items";
-    public static final String KEY_ID = "id";
+    public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_ID_LIST = "id_list";
     public static final String KEY_VALUE = "value";
@@ -59,7 +59,7 @@ public class ItemDatabaseManager {
     }
     public Cursor readItem(int id) {
         String[] columns = new String[]{"*"};
-        return database.query(DATABASE_TABLE, columns, "id = '"+id+"'", null, null, null, null);
+        return database.query(DATABASE_TABLE, columns, "_id = '"+id+"'", null, null, null, null);
     }
 
     public Cursor getItemsByList(int id_list) {
