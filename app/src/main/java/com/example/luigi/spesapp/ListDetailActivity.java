@@ -1,5 +1,6 @@
 package com.example.luigi.spesapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,6 +48,7 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
