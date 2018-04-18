@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         myAdapter = new MyRecyclerAdapter(getApplicationContext());
         myLayoutManager = new LinearLayoutManager(this);
-        mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
