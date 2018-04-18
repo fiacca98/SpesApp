@@ -67,4 +67,9 @@ public class ListDatabaseManager {
         String[] columns = new String[] {"*"};
         return database.query(DATABASE_TABLE, columns, KEY_ID_USER+" = "+id_user, null, null, null, null);
     }
+
+    public Cursor getListsByName(String name){
+        String[] columns = new String[] {"*"};
+        return database.query(DATABASE_TABLE, columns, "name = '"+name+"'", null, null, null, null);
+    }
 }

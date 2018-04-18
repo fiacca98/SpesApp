@@ -1,21 +1,16 @@
 package com.example.luigi.spesapp;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.luigi.spesapp.R;
-import com.example.luigi.spesapp.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,33 +19,40 @@ import java.util.List;
  * Created by luigi on 09/04/2018.
  */
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
+public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.MyViewHolder> {
+
+    int listID;
 
     List<Lista> liste = new ArrayList<Lista>();
     ListDatabaseManager listDatabaseManager;
     UserDatabaseManager userDatabaseManager;
     int userId;
 
-    public MyRecyclerAdapter(Context context) {
-
+    public ListRecyclerAdapter(Context context) {
         this.updateList(context);
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        View myView;
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView infoText;
         Context context;
-
-        public MyViewHolder(View view){
+        View myView;
+        ListDatabaseManager listDatabaseManager;
+        public MyViewHolder(View view) {
             super(view);
             myView = view;
             infoText = (TextView) view.findViewById(R.id.info_text);
             context = view.getContext();
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("nome",infoText.getText()));
         }
     }
 
-
-    public void updateList(Context context){
+    public void updateList(Context context) {
         String username = SharedPreferenceUtility.readUserFromSharedPreferences(context);
         userDatabaseManager = new UserDatabaseManager(context);
         userDatabaseManager.open();
@@ -63,33 +65,29 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         Cursor cursor = listDatabaseManager.getListsByUser(this.userId);
         cursor.moveToFirst();
         int index = cursor.getCount();
-        if(index > 0){
+        if (index > 0) {
             int i = 0;
             this.liste.clear();
-            do{
+            do {
                 Lista lista = new Lista(cursor.getInt(cursor.getColumnIndex(listDatabaseManager.KEY_ID)),
                         cursor.getString(cursor.getColumnIndex(listDatabaseManager.KEY_NAME)),
                         cursor.getInt(cursor.getColumnIndex(listDatabaseManager.KEY_ID_USER)));
                 this.liste.add(lista);
                 i++;
                 cursor.moveToNext();
-            }while (i<index);
+            } while (i < index);
         }
-        else {
-            this.liste.clear();
-        }
-        cursor.close();
-        listDatabaseManager.close();
+    }
 
-        int test = this.liste.size();
-
+    public int getListID(int position){
+        return liste.get(position).getId_lista();
     }
 
     @Override
-    public MyRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
 
-        switch(MainActivity.mCurrentLayoutManagerType){
+        switch (MainActivity.mCurrentLayoutManagerType) {
 
             case GRID_LAYOUT_MANAGER:
                 itemView = LayoutInflater.from(parent.getContext())
@@ -106,8 +104,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         }
 
 
-
-
         return new MyViewHolder(itemView);
     }
 
@@ -117,8 +113,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyRecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(ListRecyclerAdapter.MyViewHolder holder, int position) {
         holder.infoText.setText(liste.get(position).getNome());
+
         int id = liste.get(position).getId_lista();
         holder.myView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -128,21 +125,21 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                 input.setText("Sei sicuro di voler eliminare questa lista?");
                 builder.setTitle("ELIMINA LISTA");
                 builder.setView(input);
-                builder.setPositiveButton("CANCELLA", new DialogInterface.OnClickListener(){
+                builder.setPositiveButton("CANCELLA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ListDatabaseManager listDatabaseManager = new ListDatabaseManager(holder.context);
                         listDatabaseManager.open();
                         int cursor = listDatabaseManager.deleteList(id);
                         listDatabaseManager.close();
-                        Log.d("delete", "ho cancellato "+cursor+" linee");
+                        Log.d("delete", "ho cancellato " + cursor + " linee");
                         updateList(holder.context);
                         notifyItemRemoved(position);
                         dialog.cancel();
 
                     }
                 });
-                builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener(){
+                builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -155,7 +152,5 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         });
 
     }
-
-
 
 }
