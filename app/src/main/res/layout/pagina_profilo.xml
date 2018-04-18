@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/benvenuto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/immagineProfilo"
+        android:padding="10dp"
+        android:text="Benvenuto Mario Rossi"
+        android:textSize="25dp" />
+    <TextView
+        android:id="@+id/testoModifica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="modifica le impostazioni base del tuo account"
+        android:layout_below="@+id/benvenuto"
+        android:padding="10dp"
+        android:textSize="15dp"
+        android:layout_marginLeft="30dp"/>
+
+    <ImageView
+        android:id="@+id/immagineProfilo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_below="@+id/testoModifica"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/immagine_profilo" />
+
+    <TextView
+        android:id="@+id/testanomeUtente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/immagineProfilo"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="nome utente"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/nomeutente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/testanomeUtente"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="Mario Rossi"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/testaemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nomeutente"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:text="email"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/immagineProfilo"
+        android:layout_below="@+id/testaemail"
+        android:padding="5dp"
+        android:text="mario.rossi@gmail.com"
+        android:textSize="25dp" />
+</RelativeLayout>
