@@ -54,7 +54,7 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        double quantity=itemList.get(position).getQuantita();
+        String quantity=itemList.get(position).getQuantita();
         viewHolder.nameHolder.setText(itemList.get(position).getNome());
         viewHolder.valueHolder.setText(String.valueOf(quantity));
 
@@ -93,7 +93,7 @@ public class AdapterActivity extends ArrayAdapter<Articolo> {
                 Articolo item = new Articolo(cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_NAME)),
                         cursor.getInt(cursor.getColumnIndex(ItemDatabaseManager.KEY_ID)),
                         cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_ID_LIST)),
-                        cursor.getInt(cursor.getColumnIndex(itemDatabaseManager.KEY_VALUE)));
+                        cursor.getString(cursor.getColumnIndex(itemDatabaseManager.KEY_VALUE)));
                 this.itemList.add(item);
                 i++;
                 cursor.moveToNext();

@@ -36,7 +36,7 @@ public class ItemDatabaseManager {
         databaseHelper.close();
     }
 
-    private ContentValues createContentValues(String name, int id_list, double value) {
+    private ContentValues createContentValues(String name, int id_list, String value) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_NAME,name);
         contentValues.put(KEY_ID_LIST, id_list);
@@ -44,7 +44,7 @@ public class ItemDatabaseManager {
         return contentValues;
     }
 
-    public long createItem(String name, int id_list, int value) {
+    public long createItem(String name, int id_list, String value) {
         ContentValues initialValues = createContentValues(name, id_list, value);
         return database.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }

@@ -37,6 +37,8 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
         TextView infoText;
         Context context;
         View myView;
+        int position;
+        int id;
         ListDatabaseManager listDatabaseManager;
         public MyViewHolder(View view) {
             super(view);
@@ -48,7 +50,8 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("nome",infoText.getText()));
+            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("id",id));
+
         }
     }
 
@@ -76,6 +79,9 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
                 i++;
                 cursor.moveToNext();
             } while (i < index);
+        }
+        else{
+            this.liste.clear();
         }
     }
 
@@ -114,6 +120,8 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
     @Override
     public void onBindViewHolder(ListRecyclerAdapter.MyViewHolder holder, int position) {
+        holder.position = position;
+        holder.id = liste.get(position).getId_lista();
         holder.infoText.setText(liste.get(position).getNome());
 
         int id = liste.get(position).getId_lista();
