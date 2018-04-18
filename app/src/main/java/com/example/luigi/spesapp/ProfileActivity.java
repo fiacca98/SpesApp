@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,8 +39,22 @@ public class ProfileActivity extends AppCompatActivity {
         this.utente=userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_USERNAME));
         this.mail=userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_MAIL));
 
-        name.setText(nome);
         nameOfUser.setText(utente);
+        name.setText(nome);
         email.setText(mail);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(utente);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileActivity.super.onBackPressed();
+            }
+        });
+
     }
 }

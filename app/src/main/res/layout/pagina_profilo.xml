@@ -1,73 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/immagineProfilo"
-        android:padding="10dp"
-        android:text="Benvenuto Mario Rossi"
-        android:textSize="25dp" />
-    <TextView
-        android:id="@+id/testoModifica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="modifica le impostazioni base del tuo account"
-        android:layout_below="@+id/name"
-        android:padding="10dp"
-        android:textSize="15dp"
-        android:layout_marginLeft="30dp"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/buttonSign"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/white" />
 
     <ImageView
         android:id="@+id/immagineProfilo"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/testoModifica"
-        android:layout_centerHorizontal="true"/>
-        <!--android:src="@drawable/immagine_profilo" -->
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_launcher_background"/>
 
-    <TextView
-        android:id="@+id/testanomeUtente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/immagineProfilo"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        android:text="nome utente"
-        android:textSize="20dp" />
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/testanomeUtente"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        android:text="Mario Rossi"
-        android:textSize="30dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="35dp">
 
-    <TextView
-        android:id="@+id/testaemail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:layout_centerHorizontal="true"
-        android:padding="5dp"
-        android:text="email"
-        android:textSize="20dp" />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/user" />
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/immagineProfilo"
-        android:layout_below="@+id/testaemail"
-        android:padding="5dp"
-        android:text="mario.rossi@gmail.com"
-        android:textSize="25dp" />
-</RelativeLayout>
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="username"
+                android:maxLines="1"
+                android:textColor="@color/loginTitle"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="35dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/nome" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="nome e cognome"
+                android:maxLines="1"
+                android:textColor="@color/loginTitle"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="35dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/mail" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="pippo@gmail.com"
+                android:textColor="@color/loginTitle"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
