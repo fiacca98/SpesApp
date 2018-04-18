@@ -14,7 +14,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login">
+        <activity android:name=".TutorialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".Register">
         </activity>
+
     </application>
 
 </manifest>
