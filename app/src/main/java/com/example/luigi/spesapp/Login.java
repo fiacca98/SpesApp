@@ -42,6 +42,7 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this,MainActivity.class);
                         intent.putExtra("username", usernameString);
                         startActivity(intent);
+                        finish();
                     }
                     else {
                         TextView notReg = (TextView) findViewById(R.id.notreg);
@@ -64,6 +65,7 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this,MainActivity.class);
             intent.putExtra("username", usernameGet);
             startActivity(intent);
+            finish();
         }
     }
 }
