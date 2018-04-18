@@ -26,14 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_CREATE_LIST =
             "CREATE TABLE lists(" +
-                    ListDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+                    ListDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                     ListDatabaseManager.KEY_NAME + " TEXT, " +
                     ListDatabaseManager.KEY_ID_USER + " INTEGER" +
                     ");";
 
     public static final String DATABASE_CREATE_ITEM =
             "CREATE TABLE items(" +
-                    ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "+
+                    ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     ItemDatabaseManager.KEY_NAME + " TEXT, " +
                     ItemDatabaseManager.KEY_ID_LIST + " INTEGER, " +
                     ItemDatabaseManager.KEY_VALUE + " TEXT" +

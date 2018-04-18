@@ -15,13 +15,15 @@ public class DataAccessSource {
         return Main_Singleton.getInstance().getListe();
     }
 
-    public static void addItem(Lista lista, Context context){
+    public static void addItem(Lista lista, Context context) {
         Main_Singleton.getInstance().getListe().add(lista);
     }
-    public void removeItem(Lista città, Context context){
+
+    public void removeItem(Lista città, Context context) {
         Main_Singleton.getInstance().getListe().remove(città);
     }
-    public static Lista getItemByPosition(Context context, int position){
+
+    public static Lista getItemByPosition(Context context, int position) {
         return Main_Singleton.getInstance().getListe().get(position);
     }
 }

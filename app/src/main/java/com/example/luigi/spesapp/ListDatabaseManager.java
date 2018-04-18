@@ -36,7 +36,7 @@ public class ListDatabaseManager {
 
     private ContentValues createContentValues(String name, int id_user) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_NAME,name);
+        contentValues.put(KEY_NAME, name);
         contentValues.put(KEY_ID_USER, id_user);
         return contentValues;
     }
@@ -46,30 +46,31 @@ public class ListDatabaseManager {
         return database.insertOrThrow(DATABASE_TABLE, null, initialValues);
     }
 
-    public int deleteList(int id){
-        return database.delete(DATABASE_TABLE,"id = "+id,null);
+    public int deleteList(int id) {
+        return database.delete(DATABASE_TABLE, "id = " + id, null);
     }
 
     public boolean updateList(Lista lista) {
-        ContentValues updateValues = createContentValues(lista.getNome(),lista.getId_utente());
+        ContentValues updateValues = createContentValues(lista.getNome(), lista.getId_utente());
         return database.update(DATABASE_TABLE, updateValues, KEY_ID + "=" + lista.getId_lista(), null) > 0;
     }
 
     public Cursor fetchAllLists() {
         return database.query(DATABASE_TABLE, null, null, null, null, null, null);
     }
+
     public Cursor readList(int id) {
         String[] columns = new String[]{"*"};
-        return database.query(DATABASE_TABLE, columns, "id = '"+id+"'", null, null, null, null);
+        return database.query(DATABASE_TABLE, columns, "id = '" + id + "'", null, null, null, null);
     }
 
-    public Cursor getListsByUser(int id_user){
-        String[] columns = new String[] {"*"};
-        return database.query(DATABASE_TABLE, columns, KEY_ID_USER+" = "+id_user, null, null, null, null);
+    public Cursor getListsByUser(int id_user) {
+        String[] columns = new String[]{"*"};
+        return database.query(DATABASE_TABLE, columns, KEY_ID_USER + " = " + id_user, null, null, null, null);
     }
 
-    public Cursor getListsByName(String name){
-        String[] columns = new String[] {"*"};
-        return database.query(DATABASE_TABLE, columns, "name = '"+name+"'", null, null, null, null);
+    public Cursor getListsByName(String name) {
+        String[] columns = new String[]{"*"};
+        return database.query(DATABASE_TABLE, columns, "name = '" + name + "'", null, null, null, null);
     }
 }

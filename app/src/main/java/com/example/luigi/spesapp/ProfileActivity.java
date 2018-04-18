@@ -17,17 +17,18 @@ import android.widget.TextView;
 public class ProfileActivity extends AppCompatActivity {
     TextView name, email;
     TextView nameOfUser;
-    String nome,utente,mail;
+    String nome, utente, mail;
     UserDatabaseManager userDatabaseManager;
     int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pagina_profilo);
-        Intent fromList=getIntent();
-        name=(TextView)findViewById(R.id.name);
-        email=(TextView)findViewById(R.id.email);
-        nameOfUser=(TextView)findViewById(R.id.username);
+        Intent fromList = getIntent();
+        name = (TextView) findViewById(R.id.name);
+        email = (TextView) findViewById(R.id.email);
+        nameOfUser = (TextView) findViewById(R.id.username);
 
         String username = SharedPreferenceUtility.readUserFromSharedPreferences(ProfileActivity.this);
         userDatabaseManager = new UserDatabaseManager(ProfileActivity.this);
@@ -35,9 +36,9 @@ public class ProfileActivity extends AppCompatActivity {
         Cursor userCursor = userDatabaseManager.readUser(username);
         userCursor.moveToFirst();
 
-        this.nome=userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_NAME));
-        this.utente=userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_USERNAME));
-        this.mail=userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_MAIL));
+        this.nome = userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_NAME));
+        this.utente = userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_USERNAME));
+        this.mail = userCursor.getString(userCursor.getColumnIndex(userDatabaseManager.KEY_MAIL));
 
         nameOfUser.setText(utente);
         name.setText(nome);

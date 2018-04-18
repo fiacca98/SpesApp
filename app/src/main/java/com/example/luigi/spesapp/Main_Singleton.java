@@ -28,25 +28,26 @@ public class Main_Singleton {
         return this.user;
     }
 
-    public List<Lista> getListe(){
+    public List<Lista> getListe() {
         return this.liste;
     }
 
-    public void addLista(Lista lista){
+    public void addLista(Lista lista) {
         this.liste.add(lista);
     }
 
-    public void resetListe(){
+    public void resetListe() {
         this.liste.clear();
     }
 
-    public void setLista(){
+    public void setLista() {
 
     }
 
-    public void removeLocation(Lista lista){
+    public void removeLocation(Lista lista) {
         this.liste.remove(liste);
     }
+
     public void addArticolo(int position, Articolo articolo) {
         this.liste.get(position).addArticolo(articolo);
     }

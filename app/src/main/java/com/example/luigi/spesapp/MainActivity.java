@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayoutManager myLayoutManager;
     public static LayoutManagerType mCurrentLayoutManagerType;
     public Lista lista;
+
     public enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         myAdapter = new ListRecyclerAdapter(getApplicationContext());
-        myLayoutManager = new GridLayoutManager(this,2);
+        myLayoutManager = new GridLayoutManager(this, 2);
         mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
         myRecyclerView.setLayoutManager(myLayoutManager);
         myRecyclerView.setAdapter(myAdapter);
@@ -60,20 +61,20 @@ public class MainActivity extends AppCompatActivity {
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
                         builder.setTitle("AGGIUNGI LISTA");
                         builder.setView(input);
-                        builder.setPositiveButton("CREA", new DialogInterface.OnClickListener(){
+                        builder.setPositiveButton("CREA", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 int id = SharedPreferenceUtility.readIdFromSharedPreference(getApplicationContext());
                                 ListDatabaseManager listDatabaseManager = new ListDatabaseManager(getApplicationContext());
                                 listDatabaseManager.open();
-                                Long cursor = listDatabaseManager.createList(String.valueOf(input.getText()),id);
+                                Long cursor = listDatabaseManager.createList(String.valueOf(input.getText()), id);
                                 myAdapter.updateList(getApplicationContext());
 
                                 dialog.cancel();
                             }
                         });
-                        builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener(){
+                        builder.setNegativeButton("ANNULLA", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile:
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 return true;
 
             default:

@@ -26,8 +26,9 @@ public class Register extends AppCompatActivity {
     private UserDatabaseManager userDatabaseManager;
     private Cursor cursor;
     private ImageView photo;
-    private final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE=1;
-    private final int REQUEST_PHOTO_FROM_GALLERY=2;
+    private final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 1;
+    private final int REQUEST_PHOTO_FROM_GALLERY = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,7 +60,7 @@ public class Register extends AppCompatActivity {
                 if (String.valueOf(cursor.moveToFirst()).equals("true")) {
                     cursor.moveToFirst();
                     int id = cursor.getInt(cursor.getColumnIndex("ID"));
-                    SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(),id, Register.this);
+                    SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(), id, Register.this);
                     Intent intent = new Intent(Register.this, MainActivity.class);
                     intent.putExtra("username", editUsername.getText().toString());
                     startActivity(intent);
@@ -134,7 +135,7 @@ public class Register extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final ImageView photo=(ImageView)findViewById(R.id.photo);
+        final ImageView photo = (ImageView) findViewById(R.id.photo);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_PHOTO_FROM_GALLERY) {
                 Uri photoUri = data.getData();

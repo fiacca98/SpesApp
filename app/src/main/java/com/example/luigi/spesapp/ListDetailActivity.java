@@ -30,7 +30,7 @@ import java.util.List;
  * Created by corsista on 16/04/2018.
  */
 
-public class ListDetailActivity extends AppCompatActivity implements DetailInterface{
+public class ListDetailActivity extends AppCompatActivity implements DetailInterface {
     private RecyclerView myRecyclerView;
     private ItemRecyclerAdapter itemRecyclerAdapter;
     private RecyclerView.LayoutManager myLayoutManager;
@@ -40,7 +40,7 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
     @Override
     public int getListId() {
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id",0);
+        int id = intent.getIntExtra("id", 0);
         return id;
     }
 
@@ -48,6 +48,7 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER
     }
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               ListDetailActivity.super.onBackPressed();
+                ListDetailActivity.super.onBackPressed();
             }
         });
 
@@ -107,12 +108,12 @@ public class ListDetailActivity extends AppCompatActivity implements DetailInter
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                int id_list= getIntent().getIntExtra("id", 0);
+                                int id_list = getIntent().getIntExtra("id", 0);
 
                                 ItemDatabaseManager itemDatabaseManager = new ItemDatabaseManager(ListDetailActivity.this);
                                 itemDatabaseManager.open();
                                 Long cursor = itemDatabaseManager.createItem(String.valueOf(name.getText()), id_list, String.valueOf(value.getText()));
-                                Log.d("cursor",cursor.toString());
+                                Log.d("cursor", cursor.toString());
                                 itemRecyclerAdapter.updateList(ListDetailActivity.this);
 
                                 dialog.cancel();

@@ -26,11 +26,11 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
 
     public ItemRecyclerAdapter(Context context) {
-            try {
-                this.mCallBack = (DetailInterface) context;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + " must implement DetailInterface");
-            }
+        try {
+            this.mCallBack = (DetailInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement DetailInterface");
+        }
 
         this.updateList(context);
     }
@@ -82,17 +82,15 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 i++;
                 cursor.moveToNext();
             } while (i < index);
-        }
-        else {
+        } else {
             this.articoli.clear();
         }
 
 
-        }
+    }
 
 
-
-    public int getListID(int position){
+    public int getListID(int position) {
         return articoli.get(position).getId_lista();
     }
 
@@ -100,7 +98,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     public ItemRecyclerAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_layout, parent, false);
-
 
 
         return new ItemViewHolder(itemView);
