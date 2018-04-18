@@ -54,11 +54,12 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String use = editUsername.getText().toString();
-                userDatabaseManager.createUser(editUsername.getText().toString(), editName.getText().toString(), editMail.getText().toString(), editPassword.getText().toString(), 0);
+                userDatabaseManager.createUser(editUsername.getText().toString(), editName.getText().toString(), editMail.getText().toString(), editPassword.getText().toString(), false);
                 cursor = userDatabaseManager.readUser(editUsername.getText().toString());
                 if (String.valueOf(cursor.moveToFirst()).equals("true")) {
                     cursor.moveToFirst();
                     int id = cursor.getInt(cursor.getColumnIndex("ID"));
+                    SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(), id, Register.this);
                     int tutorial = cursor.getInt(cursor.getColumnIndex(userDatabaseManager.KEY_TUTORIAL));
                     SharedPreferenceUtility.setUserOnSharedPreferences(editUsername.getText().toString(),id, Register.this);
                     if(tutorial == 0){
@@ -142,7 +143,7 @@ public class Register extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        final ImageView photo=(ImageView)findViewById(R.id.photo);
+        final ImageView photo = (ImageView) findViewById(R.id.photo);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_PHOTO_FROM_GALLERY) {
                 Uri photoUri = data.getData();

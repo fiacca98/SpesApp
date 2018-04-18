@@ -30,11 +30,11 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
 
     public ItemRecyclerAdapter(Context context) {
-            try {
-                this.mCallBack = (DetailInterface) context;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + " must implement DetailInterface");
-            }
+        try {
+            this.mCallBack = (DetailInterface) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement DetailInterface");
+        }
 
         this.updateList(context);
     }

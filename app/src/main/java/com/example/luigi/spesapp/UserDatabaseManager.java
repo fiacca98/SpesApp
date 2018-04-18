@@ -40,7 +40,7 @@ public class UserDatabaseManager {
     private ContentValues createContentValues(String username, String name, String email, String password, int tutorial) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_USERNAME, username);
-        contentValues.put(KEY_NAME,name);
+        contentValues.put(KEY_NAME, name);
         contentValues.put(KEY_MAIL, email);
         contentValues.put(KEY_PASSWORD, password);
         contentValues.put(KEY_TUTORIAL, tutorial);
@@ -60,9 +60,10 @@ public class UserDatabaseManager {
     public Cursor fetchAllUsers() {
         return database.query(DATABASE_TABLE, null, null, null, null, null, null);
     }
+
     public Cursor readUser(String username) {
         String[] columns = new String[]{"*"};
-        return database.query(DATABASE_TABLE, columns, "username = '"+username+"'", null, null, null, null);
+        return database.query(DATABASE_TABLE, columns, "username = '" + username + "'", null, null, null, null);
     }
 
     public Cursor readUserById(int id) {
@@ -70,9 +71,9 @@ public class UserDatabaseManager {
         return database.query(DATABASE_TABLE, columns, "ID = "+id, null, null, null, null);
     }
 
-    public Cursor getUserId(String username){
+    public Cursor getUserId(String username) {
         String[] columns = new String[]{KEY_ID};
-        return database.query(DATABASE_TABLE, columns, "username = '"+username+"'", null, null, null, null);
+        return database.query(DATABASE_TABLE, columns, "username = '" + username + "'", null, null, null, null);
     }
 
     public boolean setTutorial(int id){

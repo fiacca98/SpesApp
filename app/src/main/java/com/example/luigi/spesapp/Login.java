@@ -38,12 +38,12 @@ public class Login extends AppCompatActivity {
                     Log.d("cursor", String.valueOf(cursor.moveToFirst()));
                     if (!String.valueOf(cursor.moveToFirst()).equals("false")) {
 
-                        SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, cursor.getInt(cursor.getColumnIndex(dbManager.KEY_ID)),Login.this);
+                        SharedPreferenceUtility.setUserOnSharedPreferences(usernameString, cursor.getInt(cursor.getColumnIndex(dbManager.KEY_ID)), Login.this);
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             intent.putExtra("username", usernameString);
                             startActivity(intent);
-                    }
-                    else {
+                        finish();
+                    } else {
                         TextView notReg = (TextView) findViewById(R.id.notreg);
                         notReg.setVisibility(View.VISIBLE);
                         password.setText("");
@@ -55,15 +55,15 @@ public class Login extends AppCompatActivity {
             register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Login.this,Register.class);
+                    Intent intent = new Intent(Login.this, Register.class);
                     startActivity(intent);
                 }
             });
-        }
-        else {
-            Intent intent = new Intent(Login.this,MainActivity.class);
+        } else {
+            Intent intent = new Intent(Login.this, MainActivity.class);
             intent.putExtra("username", usernameGet);
             startActivity(intent);
+            finish();
         }
     }
 }

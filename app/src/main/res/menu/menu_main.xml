@@ -4,9 +4,9 @@
     tools:context=".activity.CollectionsListActivity">
 
     <item
-        android:id="@+id/action_change"
+        android:id="@+id/profile"
         android:orderInCategory="100"
-       android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_user"
         app:showAsAction="always"
         android:title="profilo" />
 </menu>
