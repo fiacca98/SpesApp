@@ -48,7 +48,13 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("nome",infoText.getText()));
+            listDatabaseManager=new ListDatabaseManager(context);
+            listDatabaseManager.open();
+            int id = SharedPreferenceUtility.readIdFromSharedPreference(context);
+            Cursor cursor1=listDatabaseManager.getListsByUser(id);
+            cursor1.moveToFirst();
+            int id_list=cursor1.getInt(cursor1.getColumnIndex(listDatabaseManager.KEY_ID));
+            context.startActivity(new Intent(context,ListDetailActivity.class).putExtra("nome",infoText.getText()).putExtra("idList",id_list));
         }
     }
 
