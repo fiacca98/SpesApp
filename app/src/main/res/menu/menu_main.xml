@@ -6,6 +6,8 @@
     <item
         android:id="@+id/action_change"
         android:orderInCategory="100"
-        android:title="Profilo"
-        app:showAsAction="always" />
+       android:icon="@drawable/ic_user"
+        app:showAsAction="always"
+        android:title="profilo" />
 </menu>
+
