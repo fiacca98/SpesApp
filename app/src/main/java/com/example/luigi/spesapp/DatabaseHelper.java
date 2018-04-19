@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     ItemDatabaseManager.KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     ItemDatabaseManager.KEY_NAME + " TEXT, " +
                     ItemDatabaseManager.KEY_ID_LIST + " INTEGER, " +
-                    ItemDatabaseManager.KEY_VALUE + " TEXT," +
+                    ItemDatabaseManager.KEY_VALUE + " TEXT, " +
                     ItemDatabaseManager.KEY_BUYED + " INTEGER" +
                     ");";
 
